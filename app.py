@@ -80,7 +80,7 @@ def admin_signup():
     session['signup_email'] = email
 
     # 3️⃣ Generate OTP and store in session
-    otp = random.randint(100000, 999999)
+    otp = random.randint(100000, 999999)                     
     session['otp'] = otp
 
     # 4️⃣ Send OTP Email
@@ -96,15 +96,12 @@ def admin_signup():
     return redirect('/verify-otp')
 
 
-
 # ---------------------------------------------------------
 # ROUTE 2: DISPLAY OTP PAGE
 # ---------------------------------------------------------
 @app.route('/verify-otp', methods=['GET'])
 def verify_otp_get():
     return render_template("admin/verify_otp.html")
-
-
 
 # ---------------------------------------------------------
 # ROUTE 3: VERIFY OTP + SAVE ADMIN
