@@ -1,0 +1,49 @@
+{% extends "base_user.html" %}
+
+{% block title %}User Registration{% endblock %}
+
+{% block body_class %}user-auth-page{% endblock %}
+
+{% block content %}
+
+<div class="auth-card">
+<h2>User Registration</h2>
+
+<form method="POST" action="/user-register">
+
+    <label>Name:</label>
+    <input type="text" name="name" required>
+
+    <label>Email:</label>
+    <input type="email" name="email" required>
+
+    <label>Password:</label>
+    <input type="password" name="password" required>
+
+    <button type="submit" class="auth-btn">Register</button>
+</form>
+
+<br>
+<a href="/"
+style="
+display: block;
+width: 100%;
+text-align: center;
+padding: 12px;
+margin-top: 15px;
+background: linear-gradient(45deg, #8f7ecc, #6f42c1);
+color: white;
+text-decoration: none;
+border-radius: 20px;
+font-weight: 600;
+"
+onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 18px rgba(78,115,223,0.4)'"
+onmouseout="this.style.transform='none';this.style.boxShadow='none'"
+>
+Already have an account? Login
+</a>
+
+
+</div>
+
+{% endblock %}

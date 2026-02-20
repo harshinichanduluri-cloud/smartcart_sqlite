@@ -1,0 +1,54 @@
+{% extends "base_admin.html" %}
+
+{% block title %}Admin Signup{% endblock %}
+
+{% block body_class %}admin-center{% endblock %}
+
+{% block content %}
+
+<div class="website-card form-card">
+
+<h2>Admin Registration</h2>
+
+<form method="POST" action="/admin-signup">
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <label>Name</label>
+    <div class="input-group">
+        <i class="fa fa-user"></i>
+        <input type="text" name="name" placeholder="Admin name" required>
+    </div>
+
+    <label>Email</label>
+    <div class="input-group">
+        <i class="fa fa-envelope"></i>
+        <input type="email" name="email" placeholder="Admin email" required>
+    </div>
+
+    <button type="submit" class="card-btn primary-btn">Send OTP</button>
+
+</form>
+
+</div>
+
+<!-- Auto-hide flash -->
+<script>
+setTimeout(() => {
+    document.querySelectorAll('.flash').forEach(msg => {
+        msg.style.opacity = '0';
+        setTimeout(() => msg.remove(), 500);
+    });
+}, 4000);
+</script>
+
+{% endblock %}

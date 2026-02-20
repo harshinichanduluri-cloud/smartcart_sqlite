@@ -1,0 +1,83 @@
+{% extends "base_admin.html" %}
+
+{% block title %}Admin Login{% endblock %}
+
+{% block content %}
+
+<div class="admin-center">
+<div class="website-card form-card">
+
+<form method="POST" action="/admin-login">
+
+  <!-- Flash messages -->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<h2>Admin Login</h2>
+
+<label>Email</label>
+<input type="email" name="email" placeholder="Admin email" required>
+
+<label>Password</label>
+<div class="password-group">
+    <input type="password" name="password" id="loginPassword"
+           placeholder="Enter password" required>
+    <span class="toggle-password" onclick="toggleLoginPassword()">Show</span>
+</div>
+
+<button type="submit" class="card-btn primary-btn">Login</button>
+
+
+</form>
+
+<a href="/admin-signup"
+style="
+display: block;
+width: 100%;
+text-align: center;
+padding: 12px;
+margin-top: 15px;
+background: linear-gradient(45deg, #a0f1eb, #a6a0da);
+color: white;
+text-decoration: none;
+border-radius: 20px;
+font-weight: 600;
+transition: 0.3s ease;
+">
+Don't have an Account? Register
+</a>
+<a href="/admin-forgot-password" class="text-decoration-none">
+        Forgot Password?
+    </a>
+
+
+</div>
+
+</div>
+
+<script>
+function toggleLoginPassword() {
+    const pwd = document.getElementById("loginPassword");
+    const toggle = document.querySelector(".toggle-password");
+
+    if (pwd.type === "password") {
+        pwd.type = "text";
+        toggle.textContent = "Hide";
+    } else {
+        pwd.type = "password";
+        toggle.textContent = "Show";
+    }
+}
+</script>
+
+{% endblock %}

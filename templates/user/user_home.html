@@ -1,0 +1,36 @@
+{% extends "base_user.html" %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block body_class %}user-dashboard-page{% endblock %}
+
+{% block content %}
+
+<div class="user-dashboard-card">
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    <div class="flash-wrapper">
+        {% for category, message in messages %}
+            <div class="flash-box {{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endwith %}
+
+<h2>Welcome, {{ user_name }}✨</h2>
+
+<a href="/user/products" class="dashboard-link browse-btn">
+    🛒Shop Now
+</a>
+
+
+
+
+
+</div>
+
+{% endblock %}

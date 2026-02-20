@@ -1,0 +1,72 @@
+{% extends "base_admin.html" %}
+
+{% block title %}Verify OTP{% endblock %}
+
+{% block content %}
+
+<div class="website-card form-card">
+  <h2>Verify OTP</h2>
+
+  <form method="POST" action="/verify-otp">
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+      <div class="flash {{ category }}">
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <label>Enter OTP</label>
+    <input type="text" name="otp" placeholder="6-digit OTP" required>
+
+    <label>Create Password</label>
+
+    <div class="password-group">
+      <input type="password" name="password" id="password" placeholder="Enter password" required>
+      <span class="toggle-password" onclick="togglePassword()">Show</span>
+    </div>
+
+    <small class="password-hint">
+      Minimum 8 characters
+    </small>
+
+    <button type="submit"
+style="
+width:100%;
+padding:12px;
+background: linear-gradient(45deg, #4e73df, #6f42c1);
+border:none;
+border-radius:30px;
+color:white;
+font-weight:600;
+cursor:pointer;
+">
+Verify & Register
+</button>
+
+
+  </form>
+</div>
+
+<script>
+function togglePassword() {
+    const pwd = document.getElementById("password");
+    const toggle = document.querySelector(".toggle-password");
+
+    if (pwd.type === "password") {
+        pwd.type = "text";
+        toggle.textContent = "Hide";
+    } else {
+        pwd.type = "password";
+        toggle.textContent = "Show";
+    }
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="admin-center add-product-page">
+
+<div class="website-card form-card">
+
+    <!-- HEADING -->
+    <h2 class="form-title">Add New Product</h2>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/admin/add-item" enctype="multipart/form-data">
+
+        <label>Product Name</label>
+        <input type="text" name="name" placeholder="Enter product name" required>
+
+        <label>Description</label>
+        <textarea name="description" rows="3" placeholder="Product description" required></textarea>
+
+        <label>Category</label>
+        <input type="text" name="category" placeholder="Category" required>
+
+        <label>Price</label>
+        <input type="number" step="0.01" name="price" placeholder="Price" required>
+
+        <label>Product Image</label>
+        <input type="file" name="image" accept="image/*" required>
+
+        <button type="submit" class="card-btn primary-btn">
+            Add Product
+        </button>
+
+        <a href="/admin-dashboard" class="card-btn secondary-btn">
+    ← Back to Dashboard
+</a>
+
+    </form>
+
+</div>
+
+</body>
+</html>

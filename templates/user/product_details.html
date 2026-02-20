@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="user-product-details-page">
+    
+<div class="product-details-card">
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="cart-flash-wrapper">
+      {% for category, message in messages %}
+        <div class="cart-flash {{ category }}">
+            ✔ {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<h2>{{ product.name }}</h2>
+
+<img src="/static/uploads/product_images/{{ product.image }}" width="600" height="650">
+
+<p><strong>Description:</strong> {{ product.description }}</p>
+<p><strong>Category:</strong> {{ product.category }}</p>
+<p><strong>Price:</strong> ₹{{ product.price }}</p>
+<br>
+<form action="/user/add-to-cart/{{ product.product_id }}" method="GET">
+    <button type="submit" class="add-cart-btn">
+        Add to Cart
+    </button>
+</form>
+
+<br>
+<a href="/user/products" class="back-products-btn">← Back to Products</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends "base_user.html" %}
+
+{% block title %}User Login{% endblock %}
+
+{% block body_class %}user-auth-page{% endblock %}
+
+{% block content %}
+
+<div class="auth-card">
+<h2>User Login</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+  <div class="flash-wrapper">
+    {% for category, message in messages %}
+    <div class="flash-box {{ category }}">
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endwith %}
+
+<form method="POST" action="/">
+
+<label>Email:</label>
+<input type="email" name="email" required>
+
+<label>Password:</label>
+<input type="password" name="password" required>
+
+<button type="submit" class="auth-btn">Login</button>
+
+</form>
+
+<br>
+<a href="/user-register" class="auth-link"><b>Create Account</b></a>
+<div style="text-align:center; margin-top:10px;">
+    <a href="/user-forgot-password"
+       style="
+       display:inline-block;
+       padding:8px 15px;
+       background-color:#4e73df;
+       color:white;
+       text-decoration:none;
+       border-radius:4px;
+       font-size:14px;
+       ">
+       Forgot Password?
+    </a>
+</div>
+
+
+
+</div>
+
+{% endblock %}

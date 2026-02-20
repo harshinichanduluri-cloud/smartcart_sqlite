@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .cart-p{
+            text-align: center;
+        }
+        /* .shop-btn{
+            text-decoration: none;
+            background-color: blueviolet;
+            color: white;
+            border-radius: 20px;
+            padding: 10px 10px;
+            text-align: center;
+            display: block;
+            margin: 20px auto;
+            padding: 8px 0;     
+            font-size: 14px; 
+        } */
+    </style>
+</head>
+<body class="user-cart-page">
+
+<div class="cart-container">
+<h2 style="color: #764ba2; text-decoration: underline;">Your Cart</h2>
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    <div class="flash-wrapper">   
+{% for category, message in messages %}
+<div class="flash-box {{ category }}">
+    {{ message }}
+    </div>
+  {% endfor %}
+  </div>
+  {%endif%}
+{% endwith %}
+
+{% if not cart %}
+    <p class="cart-p">Your cart is empty.</p>
+    <a href="/user/products" class="shop-btn">Shop Now</a>
+{% else %}
+
+<table class="cart-table" border="1" cellpadding="10">
+    <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Action</th>
+    </tr>
+
+    {% for pid, item in cart.items() %}
+    <tr>
+        <td><img src="/static/uploads/product_images/{{ item.image }}" width="80"></td>
+        <td>{{ item.name }}</td>
+        <td>₹{{ item.price }}</td>
+
+        <td>
+            <a href="/user/cart/decrease/{{ pid }}" class="qty-btn"> - </a>
+            {{ item.quantity }}
+            <a href="/user/cart/increase/{{ pid }}" class="qty-btn"> + </a>
+        </td>
+
+        <td>₹{{ item.price * item.quantity }}</td>
+
+        <td><a href="/user/cart/remove/{{ pid }}" class="remove-cart-btn">Remove</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+
+<h3>Grand Total: ₹{{ grand_total }}</h3>
+<p>Select delivery address before payment</p>
+
+{% if cart %}
+    <a href="/user/address" class="proceed-pay-btn">
+        Proceed to Checkout
+    </a>
+{% endif %}
+
+
+<a href="/user/products" class="continue-shopping-btn">Continue Shopping</a>
+
+{% endif %}
+</div>
+
+</body>
+</html>

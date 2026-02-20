@@ -1,0 +1,80 @@
+{% extends "base_user.html" %}
+
+{% block title %}Products{% endblock %}
+
+{% block body_class %}user-products-page{% endblock %}
+
+{% block content %}
+<div class="products-wrapper">
+
+<h2>All Products</h2>
+
+<div class="bar">
+
+<!-- Search Bar -->
+<form method="GET" action="/user/products" class="user-search-form">
+    <input type="text" name="search" placeholder="Search product..."
+           class="user-search-input"
+           value="{{ request.args.get('search', '') }}">
+    <button type="submit" class="user-search-btn">Search</button>
+</form>
+
+<!-- Category Filter -->
+<form method="GET" action="/user/products" class="user-filter-form">
+    <select name="category" class="user-category-select">
+        <option value="">All Categories</option>
+
+        {% for cat in categories %}
+        <option value="{{ cat.category }}"
+            {% if request.args.get('category') == cat.category %} selected {% endif %}>
+            {{ cat.category }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit" class="user-filter-btn">Filter</button>
+</form>
+
+</div>
+
+<hr>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="cart-flash-wrapper">
+      {% for category, message in messages %}
+        <div class="cart-flash {{ category }}">
+            ✔ {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<!-- Product Cards -->
+<div class="product-container">
+
+{% for product in products %}
+<div class="product-card">
+
+    <img src="/static/uploads/product_images/{{ product.image }}" alt="{{ product.name }}">
+
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.category }}</p>
+    <p><strong>₹{{ product.price }}</strong></p>
+
+    <a href="/user/product/{{ product.product_id }}" class="product-view-btn">
+        View Details
+    </a>
+</div>
+{% endfor %}
+
+</div>
+</div>
+
+
+<br><hr><br>
+
+<a href="/user-dashboard" class="home-btn">← Back to Dashboard</a>
+
+{% endblock %}

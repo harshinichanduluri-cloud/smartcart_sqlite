@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Address</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body.address-page {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-family: Arial, sans-serif;
+        }
+
+        .address-container {
+            width: 60%;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        h2, h3 {
+            color: #764ba2;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .address-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .address-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        .deliver-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: linear-gradient(90deg, #ff8c00, #ff6a00);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .deliver-btn:hover {
+            opacity: 0.9;
+        }
+
+        form input,
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        form textarea {
+            height: 70px;
+            resize: none;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .save-btn:hover {
+            opacity: 0.9;
+        }
+
+        hr {
+            margin: 30px 0;
+        }
+    </style>
+</head>
+
+<body class="address-page">
+
+<div class="address-container">
+
+    <h2>Select Delivery Address</h2>
+
+    <!-- Existing Addresses -->
+    {% if addresses %}
+        {% for addr in addresses %}
+        <div class="address-card">
+            <b>{{ addr.full_name }}</b><br>
+            {{ addr.address_line }}<br>
+            {{ addr.city }}, {{ addr.state }} - {{ addr.pincode }}<br>
+            Phone: {{ addr.phone }}<br>
+
+            <a href="/user/pay?address_id={{ addr.address_id }}" class="deliver-btn">
+                Deliver Here
+            </a>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p style="text-align:center;">No addresses added yet.</p>
+    {% endif %}
+
+    <hr>
+
+    <h3>Add New Address</h3>
+
+    <form method="POST">
+        <input name="full_name" placeholder="Full Name" required>
+        <input name="phone" placeholder="Phone Number" required>
+        <textarea name="address_line" placeholder="Address" required></textarea>
+        <input name="city" placeholder="City" required>
+        <input name="state" placeholder="State" required>
+        <input name="pincode" placeholder="Pincode" required>
+
+        <button type="submit" class="save-btn">Save Address</button>
+    </form>
+
+</div>
+
+</body>
+</html>
